@@ -12,13 +12,15 @@
 
 'use strict';
 
-angular.module('ds.products')
+//	var producstModule = angular.module('ds.products', ['restangular', 'ds.shared', 'ds.cart', 'ui.bootstrap', 'ds.wishlist']);
+	angular.module('ds.products')
     /** Controls the product detail view, which allows the shopper to add an item to the cart.
      * Listens to the 'cart:updated' event.  Once the item has been added to the cart, and the updated
      * cart information has been retrieved from the service, the 'cart' view will be shown.
      */
-    .controller('ProductDetailCtrl', ['$scope', '$rootScope', 'CartSvc', 'product', 'lastCatId', 'settings', 'GlobalData', 'CategorySvc','$filter', 'ProductAttributeSvc', '$modal', 'shippingZones',
-        function($scope, $rootScope, CartSvc, product, lastCatId, settings, GlobalData, CategorySvc, $filter, ProductAttributeSvc, $modal, shippingZones) {
+	//angular.module('ds.products', ['restangular','ds.shared','ds.cart','ui.bootstrap','ds.wishlist'])
+	.controller('ProductDetailCtrl', ['$scope', '$rootScope', 'WishlistSvc', 'CartSvc', 'product', 'lastCatId', 'settings', 'GlobalData', 'CategorySvc','$filter', 'ProductAttributeSvc', '$modal', 'shippingZones',
+        function($scope, $rootScope, WishlistSvc, CartSvc, product, lastCatId, settings, GlobalData, CategorySvc, $filter, ProductAttributeSvc, $modal, shippingZones) {
             var modalInstance;
             
             $scope.product = product;
@@ -30,6 +32,21 @@ angular.module('ds.products')
 
             $scope.taxConfiguration = GlobalData.getCurrentTaxConfiguration();
 
+			$scope.addToWishlist = function () {
+                var newWishlist = {
+                    id: 'defaultWishlistId',
+                    owner: 'wishlistOwner@hybris.com',
+                    title: 'defaultWishlistTitle',
+                    items: [
+                        {
+                            product: $scope.product.product.id,
+                            amount: $scope.productDetailQty
+                        }
+                    ]
+                };
+                WishlistSvc.createWishlist(newWishlist);
+            };
+			
             if(!!lastCatId) {
                 if(lastCatId === 'allProducts'){
                     var allProductsName = $filter('translate')('ALL_PRODUCTS');
@@ -128,3 +145,4 @@ angular.module('ds.products')
                 return ProductAttributeSvc.hasAnyOfAttributesSet(product);
             };
 }]);
+//angular.module('ds.products', ['restangular','ds.shared','ds.cart','ui.bootstrap','ds.wishlist']);

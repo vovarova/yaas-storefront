@@ -95,6 +95,10 @@ angular.module('ds.shared')
                 siteSettings: {
                     baseUrl: 'https://' + apiPath + '/hybris/site/v1/' + tenantId
                 },
+				
+				wishlist: {			
+					baseUrl: 'https://wishlistp1941829915trial.hanatrial.ondemand.com/wishlist/'
+				},
 
                 indexing: {
                     baseUrl: 'https://' + apiPath + '/hybris/search-algolia/v1/' + tenantId
