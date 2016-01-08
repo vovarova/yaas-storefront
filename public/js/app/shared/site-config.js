@@ -97,7 +97,7 @@ angular.module('ds.shared')
                 },
 				
 				wishlist: {			
-					baseUrl: 'https://wishlistp1941829915trial.hanatrial.ondemand.com/wishlist/'
+					baseUrl: 'https://api.yaas.io/remit/wishlist/v1/'
 				},
 
                 indexing: {
